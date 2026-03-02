@@ -1,4 +1,4 @@
-module github.com/yarosurawu/project-prot
+module github.com/yarosurawu/project-protos
 
 go 1.25.6
 
