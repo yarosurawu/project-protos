@@ -76,6 +76,7 @@ func (x *User) GetEmail() string {
 type CreateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -113,6 +114,13 @@ func (*CreateUserRequest) Descriptor() ([]byte, []int) {
 func (x *CreateUserRequest) GetEmail() string {
 	if x != nil {
 		return x.Email
+	}
+	return ""
+}
+
+func (x *CreateUserRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
 	}
 	return ""
 }
@@ -165,6 +173,7 @@ type UpdateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -213,9 +222,18 @@ func (x *UpdateUserRequest) GetEmail() string {
 	return ""
 }
 
+func (x *UpdateUserRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
 type UpdateUserResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -250,11 +268,25 @@ func (*UpdateUserResponse) Descriptor() ([]byte, []int) {
 	return file_proto_user_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *UpdateUserResponse) GetUser() *User {
+func (x *UpdateUserResponse) GetId() uint32 {
 	if x != nil {
-		return x.User
+		return x.Id
 	}
-	return nil
+	return 0
+}
+
+func (x *UpdateUserResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UpdateUserResponse) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
 }
 
 type DeleteUserRequest struct {
@@ -432,18 +464,21 @@ const file_proto_user_proto_rawDesc = "" +
 	"\x10proto/user.proto\x12\x04user\",\n" +
 	"\x04User\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\")\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\"E\n" +
 	"\x11CreateUserRequest\x12\x14\n" +
-	"\x05email\x18\x01 \x01(\tR\x05email\"4\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"4\n" +
 	"\x12CreateUserResponse\x12\x1e\n" +
 	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"9\n" +
+	".user.UserR\x04user\"U\n" +
 	"\x11UpdateUserRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email\"4\n" +
-	"\x12UpdateUserResponse\x12\x1e\n" +
-	"\x04user\x18\x01 \x01(\v2\n" +
-	".user.UserR\x04user\"#\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"V\n" +
+	"\x12UpdateUserResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"#\n" +
 	"\x11DeleteUserRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\".\n" +
 	"\x12DeleteUserResponse\x12\x18\n" +
@@ -490,23 +525,22 @@ var file_proto_user_proto_goTypes = []any{
 }
 var file_proto_user_proto_depIdxs = []int32{
 	0, // 0: user.CreateUserResponse.user:type_name -> user.User
-	0, // 1: user.UpdateUserResponse.user:type_name -> user.User
-	0, // 2: user.ListUsersResponse.users:type_name -> user.User
-	1, // 3: user.UserService.CreateUser:input_type -> user.CreateUserRequest
-	0, // 4: user.UserService.GetUser:input_type -> user.User
-	3, // 5: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
-	5, // 6: user.UserService.DeleteUser:input_type -> user.DeleteUserRequest
-	7, // 7: user.UserService.ListUsers:input_type -> user.ListUsersRequest
-	2, // 8: user.UserService.CreateUser:output_type -> user.CreateUserResponse
-	0, // 9: user.UserService.GetUser:output_type -> user.User
-	4, // 10: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
-	6, // 11: user.UserService.DeleteUser:output_type -> user.DeleteUserResponse
-	8, // 12: user.UserService.ListUsers:output_type -> user.ListUsersResponse
-	8, // [8:13] is the sub-list for method output_type
-	3, // [3:8] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // 1: user.ListUsersResponse.users:type_name -> user.User
+	1, // 2: user.UserService.CreateUser:input_type -> user.CreateUserRequest
+	0, // 3: user.UserService.GetUser:input_type -> user.User
+	3, // 4: user.UserService.UpdateUser:input_type -> user.UpdateUserRequest
+	5, // 5: user.UserService.DeleteUser:input_type -> user.DeleteUserRequest
+	7, // 6: user.UserService.ListUsers:input_type -> user.ListUsersRequest
+	2, // 7: user.UserService.CreateUser:output_type -> user.CreateUserResponse
+	0, // 8: user.UserService.GetUser:output_type -> user.User
+	4, // 9: user.UserService.UpdateUser:output_type -> user.UpdateUserResponse
+	6, // 10: user.UserService.DeleteUser:output_type -> user.DeleteUserResponse
+	8, // 11: user.UserService.ListUsers:output_type -> user.ListUsersResponse
+	7, // [7:12] is the sub-list for method output_type
+	2, // [2:7] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_user_proto_init() }
