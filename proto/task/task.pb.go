@@ -25,6 +25,8 @@ type Task struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	IsDone        bool                   `protobuf:"varint,3,opt,name=is_done,json=isDone,proto3" json:"is_done,omitempty"`
+	UserId        uint32                 `protobuf:"varint,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -71,6 +73,20 @@ func (x *Task) GetTitle() string {
 		return x.Title
 	}
 	return ""
+}
+
+func (x *Task) GetIsDone() bool {
+	if x != nil {
+		return x.IsDone
+	}
+	return false
+}
+
+func (x *Task) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
 }
 
 type CreateTaskRequest struct {
@@ -171,8 +187,7 @@ func (x *CreateTaskResponse) GetTask() *Task {
 
 type UpdateTaskRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Task          *Task                  `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -207,18 +222,11 @@ func (*UpdateTaskRequest) Descriptor() ([]byte, []int) {
 	return file_proto_task_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *UpdateTaskRequest) GetId() uint32 {
+func (x *UpdateTaskRequest) GetTask() *Task {
 	if x != nil {
-		return x.Id
+		return x.Task
 	}
-	return 0
-}
-
-func (x *UpdateTaskRequest) GetTitle() string {
-	if x != nil {
-		return x.Title
-	}
-	return ""
+	return nil
 }
 
 type UpdateTaskResponse struct {
@@ -437,19 +445,21 @@ var File_proto_task_proto protoreflect.FileDescriptor
 
 const file_proto_task_proto_rawDesc = "" +
 	"\n" +
-	"\x10proto/task.proto\x12\x04task\",\n" +
+	"\x10proto/task.proto\x12\x04task\"^\n" +
 	"\x04Task\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
-	"\x05title\x18\x02 \x01(\tR\x05title\"B\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x12\x17\n" +
+	"\ais_done\x18\x03 \x01(\bR\x06isDone\x12\x17\n" +
+	"\auser_id\x18\x04 \x01(\rR\x06userId\"B\n" +
 	"\x11CreateTaskRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\rR\x06userId\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\"4\n" +
 	"\x12CreateTaskResponse\x12\x1e\n" +
 	"\x04task\x18\x01 \x01(\v2\n" +
-	".task.TaskR\x04task\"9\n" +
-	"\x11UpdateTaskRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
-	"\x05title\x18\x02 \x01(\tR\x05title\"4\n" +
+	".task.TaskR\x04task\"3\n" +
+	"\x11UpdateTaskRequest\x12\x1e\n" +
+	"\x04task\x18\x01 \x01(\v2\n" +
+	".task.TaskR\x04task\"4\n" +
 	"\x12UpdateTaskResponse\x12\x1e\n" +
 	"\x04task\x18\x01 \x01(\v2\n" +
 	".task.TaskR\x04task\"#\n" +
@@ -499,23 +509,24 @@ var file_proto_task_proto_goTypes = []any{
 }
 var file_proto_task_proto_depIdxs = []int32{
 	0, // 0: task.CreateTaskResponse.task:type_name -> task.Task
-	0, // 1: task.UpdateTaskResponse.task:type_name -> task.Task
-	0, // 2: task.ListTasksResponse.tasks:type_name -> task.Task
-	1, // 3: task.TaskService.CreateTask:input_type -> task.CreateTaskRequest
-	0, // 4: task.TaskService.GetTask:input_type -> task.Task
-	7, // 5: task.TaskService.ListTasks:input_type -> task.ListTasksRequest
-	3, // 6: task.TaskService.UpdateTask:input_type -> task.UpdateTaskRequest
-	5, // 7: task.TaskService.DeleteTask:input_type -> task.DeleteTaskRequest
-	2, // 8: task.TaskService.CreateTask:output_type -> task.CreateTaskResponse
-	0, // 9: task.TaskService.GetTask:output_type -> task.Task
-	8, // 10: task.TaskService.ListTasks:output_type -> task.ListTasksResponse
-	4, // 11: task.TaskService.UpdateTask:output_type -> task.UpdateTaskResponse
-	6, // 12: task.TaskService.DeleteTask:output_type -> task.DeleteTaskResponse
-	8, // [8:13] is the sub-list for method output_type
-	3, // [3:8] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // 1: task.UpdateTaskRequest.task:type_name -> task.Task
+	0, // 2: task.UpdateTaskResponse.task:type_name -> task.Task
+	0, // 3: task.ListTasksResponse.tasks:type_name -> task.Task
+	1, // 4: task.TaskService.CreateTask:input_type -> task.CreateTaskRequest
+	0, // 5: task.TaskService.GetTask:input_type -> task.Task
+	7, // 6: task.TaskService.ListTasks:input_type -> task.ListTasksRequest
+	3, // 7: task.TaskService.UpdateTask:input_type -> task.UpdateTaskRequest
+	5, // 8: task.TaskService.DeleteTask:input_type -> task.DeleteTaskRequest
+	2, // 9: task.TaskService.CreateTask:output_type -> task.CreateTaskResponse
+	0, // 10: task.TaskService.GetTask:output_type -> task.Task
+	8, // 11: task.TaskService.ListTasks:output_type -> task.ListTasksResponse
+	4, // 12: task.TaskService.UpdateTask:output_type -> task.UpdateTaskResponse
+	6, // 13: task.TaskService.DeleteTask:output_type -> task.DeleteTaskResponse
+	9, // [9:14] is the sub-list for method output_type
+	4, // [4:9] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proto_task_proto_init() }

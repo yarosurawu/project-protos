@@ -5,6 +5,8 @@ option go_package = "github.com/yarosurawu/project-protos/proto/task";
 message Task {
   uint32 id      = 1;
   string title   = 2;
+  bool is_done = 3;
+  uint32 user_id = 4;
 }
 
 message CreateTaskRequest {
@@ -16,8 +18,7 @@ message CreateTaskResponse {
 }
 
 message UpdateTaskRequest {
-  uint32 id    = 1;
-  string title = 2;
+  Task task = 1;
 }
 message UpdateTaskResponse {
   Task task = 1;
